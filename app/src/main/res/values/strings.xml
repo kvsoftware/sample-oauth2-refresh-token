@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">sample-oauth2-refresh-token</string>
+
+    <!-- Main -->
+    <string name="activity_main_btn_login">Login</string>
+    <string name="activity_main_btn_logout">Log Out</string>
+    <string name="activity_main_btn_get_data">Get Data</string>
+
 </resources>

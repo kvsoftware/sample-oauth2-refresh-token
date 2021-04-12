@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.kvsoftware.oauth2refreshtoken.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         initializeBinding()
         initializeView()
         initializeObserver()
+
+        viewModel.initialize()
     }
 
     private fun initializeBinding() {
@@ -37,6 +40,21 @@ class MainActivity : AppCompatActivity() {
     private fun initializeObserver() {
         viewModel.isLoading.observe(this, {
             binding.progressbar.visibility = if (it) View.VISIBLE else View.GONE
+        })
+        viewModel.isLogged.observe(this, Observer {
+            if (it) {
+                binding.apply {
+                    buttonLogin.isEnabled = false
+                    buttonLogout.isEnabled = true
+                    buttonGetData.isEnabled = true
+                }
+            } else {
+                binding.apply {
+                    buttonLogin.isEnabled = true
+                    buttonLogout.isEnabled = false
+                    buttonGetData.isEnabled = false
+                }
+            }
         })
     }
 

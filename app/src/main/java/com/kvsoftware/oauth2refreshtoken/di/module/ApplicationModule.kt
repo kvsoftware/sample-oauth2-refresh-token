@@ -17,14 +17,14 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideRestClient(): RestClient {
-        return RestClient(ConstantHelper.BASE_URL)
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return SharedPreferences(context)
     }
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return SharedPreferences(context)
+    fun provideRestClient(sharedPreferences: SharedPreferences): RestClient {
+        return RestClient(sharedPreferences, ConstantHelper.BASE_URL)
     }
 
 }
